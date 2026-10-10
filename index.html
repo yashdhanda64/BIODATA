@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yash Dhanda | Developer Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{font-family:Inter,Arial,sans-serif;color:#f6f4ff;background:#080910;line-height:1.65;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 10% 25%,#39205b55,transparent 38%),radial-gradient(ellipse at 90% 20%,#007b9c35,transparent 37%),radial-gradient(ellipse at 55% 70%,#9b1d6540,transparent 45%)}
+:root{--muted:#9aa6bc;--cyan:#35c4f4;--line:rgba(255,255,255,.09)}
+
+/* Custom Cursor CSS */
+@media (pointer: fine) {
+  body, a, button, .btn { cursor: none; }
+}
+.cursor-dot {
+  width: 8px; height: 8px; background-color: var(--cyan);
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+  border-radius: 50%; transform: translate(-50%, -50%);
+}
+.cursor-outline {
+  width: 40px; height: 40px; border: 1px solid rgba(53, 196, 244, 0.5);
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998;
+  border-radius: 50%; transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+}
+body.cursor-hover .cursor-outline {
+  width: 60px; height: 60px; background-color: rgba(53, 196, 244, 0.1); border-color: transparent;
+}
+/* End Custom Cursor CSS */
+
+.navbar{height:100px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:#080910ee;backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.logo{font-size:32px;font-weight:800;text-decoration:none;color:#f6f4ff;letter-spacing:-1px}
+.logo span{color:#e84fa7}
+nav{display:flex;align-items:center;gap:34px}
+nav a{color:#cbd3e0;text-decoration:none;font-weight:600}
+nav a:hover{color:var(--cyan)}
+.status{border:1px solid #19be6e55;background:#10b98114;color:#43dc8a;border-radius:30px;padding:9px 17px;font-size:14px}
+.status i{display:inline-block;width:9px;height:9px;background:#22c879;border-radius:50%;margin-right:9px}
+.menu-button{display:none;background:none;border:0;color:white;font-size:27px}
+.section{max-width:1600px;margin:auto;padding:95px 5%}
+.hero{min-height:700px;display:grid;grid-template-columns:1.3fr .75fr;gap:45px;align-items:center;padding-top:60px}
+.eyebrow{display:inline-flex;gap:12px;align-items:center;background:#8b5cf621;border:1px solid #a78bfa55;color:#d4baff;padding:10px 20px;border-radius:35px;font-weight:700;margin-bottom:30px}
+.eyebrow span{color:var(--cyan);font-size:22px}
+h1{font-size:clamp(42px,5.5vw,80px);line-height:1.12;letter-spacing:-3px;font-weight:800}
+.gradient{background:linear-gradient(100deg,#a88aff,#35c4f4 52%,#e84fa7);color:transparent;background-clip:text;-webkit-background-clip:text}
+.typed-line{font-family:"Space Mono",monospace;font-size:clamp(24px,3vw,42px);font-weight:700;color:#d1d6e3;margin-top:22px}
+.caret{color:var(--cyan);font-weight:400;animation:blink .8s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+.intro{font-size:19px;color:var(--muted);max-width:750px;margin:25px 0 33px;line-height:1.8}
+.actions{display:flex;gap:16px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:18px;padding:17px 23px;border-radius:18px;text-decoration:none;font-weight:750;transition:.2s}
+.btn:hover{transform:translateY(-3px)}
+.primary{color:white;background:linear-gradient(110deg,#803df0,#078ed5);box-shadow:0 12px 35px #5b36ce35}
+.secondary{color:#f6f4ff;background:#15131f;border:1px solid #ffffff22}
+.stats{display:flex;gap:43px;border-top:1px solid var(--line);margin-top:45px;padding-top:22px;max-width:690px}
+.stats div{display:flex;flex-direction:column}
+.stats strong{font-size:17px}
+.stats small{color:var(--muted);font-size:13px}
+.hero-image-area{min-height:440px;position:relative;display:flex;align-items:center;justify-content:center}
+.profile-ring{position:relative;width:min(390px,29vw);aspect-ratio:1;padding:9px;border-radius:50%;background:linear-gradient(135deg,#6d5dff,#35bdf5,#d94fb7);box-shadow:0 0 65px #4b6be747}
+.profile-ring img{position:relative;z-index:2;width:100%;height:100%;object-fit:cover;border-radius:50%;border:5px solid #0b0c15}
+.profile-fallback{position:absolute;inset:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(140deg,#201834,#102b3a);color:#c6b3ff}
+.profile-fallback strong{font-size:78px}
+.profile-fallback small{font-size:12px;color:var(--muted)}
+.floating-label{position:absolute;z-index:4;background:#111323;border:1px solid #ffffff22;padding:13px 20px;border-radius:40px;white-space:nowrap;font-weight:700;box-shadow:0 10px 30px #0005}
+.floating-label span{color:var(--cyan);font-size:21px}
+.label-top{top:17%;left:-6%}
+.label-bottom{bottom:13%;right:-4%}
+.label-bottom span{color:#a78bfa}
+.section-title{text-align:center;margin-bottom:52px}
+.section-title h2{font-size:clamp(39px,4.5vw,65px);line-height:1.2;letter-spacing:-2px}
+.section-title p{font-size:19px;color:var(--muted);margin-top:13px}
+.about-card{max-width:1060px;margin:auto;padding:46px 50px;border-radius:30px;border:1px solid #a78bfa33;background:#11111fe8}
+.about-card>p{font-size:19px;color:var(--muted);line-height:1.9}
+.about-card strong{color:#f6f4ff}
+.about-card .quote{margin-top:22px}
+.qualities{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;border-top:1px solid var(--line);padding-top:34px;margin-top:34px}
+.qualities article{text-align:center;padding:24px 14px;border:1px solid #ffffff10;background:#ffffff09;border-radius:22px}
+.quality-icon{font-size:30px;color:#a88aff}
+.qualities h3{font-size:18px;margin:8px 0}
+.qualities p{font-size:14px;color:var(--muted)}
+
+/* STYLISH SKILLS SECTION CSS */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.skill-card {
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 35px 20px;
+  background: rgba(17, 17, 31, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  z-index: 1;
+}
+.skill-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: 0.4s ease;
+  z-index: -1;
+}
+.skill-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.skill-card:hover::before { opacity: 1; }
+
+/* Specific skill hover glows */
+.card-html:hover { box-shadow: 0 15px 35px rgba(255, 121, 44, 0.2); }
+.card-html::before { background: radial-gradient(circle at top, rgba(255,121,44,0.1) 0%, transparent 70%); }
+
+.card-css:hover { box-shadow: 0 15px 35px rgba(56, 189, 248, 0.2); }
+.card-css::before { background: radial-gradient(circle at top, rgba(56,189,248,0.1) 0%, transparent 70%); }
+
+.card-js:hover { box-shadow: 0 15px 35px rgba(255, 212, 59, 0.2); }
+.card-js::before { background: radial-gradient(circle at top, rgba(255,212,59,0.1) 0%, transparent 70%); }
+
+.card-py:hover { box-shadow: 0 15px 35px rgba(105, 170, 255, 0.2); }
+.card-py::before { background: radial-gradient(circle at top, rgba(105,170,255,0.1) 0%, transparent 70%); }
+
+.card-java:hover { box-shadow: 0 15px 35px rgba(255, 157, 105, 0.2); }
+.card-java::before { background: radial-gradient(circle at top, rgba(255,157,105,0.1) 0%, transparent 70%); }
+
+.card-c:hover { box-shadow: 0 15px 35px rgba(112, 200, 255, 0.2); }
+.card-c::before { background: radial-gradient(circle at top, rgba(112,200,255,0.1) 0%, transparent 70%); }
+
+.card-sql:hover { box-shadow: 0 15px 35px rgba(180, 154, 255, 0.2); }
+.card-sql::before { background: radial-gradient(circle at top, rgba(180,154,255,0.1) 0%, transparent 70%); }
+
+.card-gh:hover { box-shadow: 0 15px 35px rgba(255, 255, 255, 0.15); }
+.card-gh::before { background: radial-gradient(circle at top, rgba(255,255,255,0.08) 0%, transparent 70%); }
+
+/* Skill Inner Elements */
+.tech-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  border-radius: 24px;
+  background: #171624;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 28px;
+  font-weight: 800;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+}
+.skill-card:hover .tech-icon {
+  transform: scale(1.15) translateY(-5px);
+}
+
+.html { color: #ff792c; transition: 0.3s; }
+.css { color: #38bdf8; transition: 0.3s; }
+.js { color: #ffd43b; transition: 0.3s; }
+.python { color: #69aaff; transition: 0.3s; }
+.java { color: #ff9d69; transition: 0.3s; }
+.c { color: #70c8ff; transition: 0.3s; }
+.sql { color: #b49aff; transition: 0.3s; }
+.github { color: white; transition: 0.3s; }
+
+/* Neon text glow on hover */
+.skill-card:hover .html { text-shadow: 0 0 15px rgba(255, 121, 44, 0.7); }
+.skill-card:hover .css { text-shadow: 0 0 15px rgba(56, 189, 248, 0.7); }
+.skill-card:hover .js { text-shadow: 0 0 15px rgba(255, 212, 59, 0.7); }
+.skill-card:hover .python { text-shadow: 0 0 15px rgba(105, 170, 255, 0.7); }
+.skill-card:hover .java { text-shadow: 0 0 15px rgba(255, 157, 105, 0.7); }
+.skill-card:hover .c { text-shadow: 0 0 15px rgba(112, 200, 255, 0.7); }
+.skill-card:hover .sql { text-shadow: 0 0 15px rgba(180, 154, 255, 0.7); }
+.skill-card:hover .github { text-shadow: 0 0 15px rgba(255, 255, 255, 0.7); }
+
+.skill-card h3 { font-size: 22px; margin-bottom: 10px; color: #fff; }
+.skill-card p { color: var(--muted); font-size: 14px; margin: 0 0 25px; line-height: 1.5; padding: 0 10px;}
+.level {
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: 30px;
+  background: #1c1a29;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  color: #aab5c8;
+  font-weight: 600;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.skill-card:hover .level {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+
+/* STYLISH CONTACT SECTION CSS */
+.contact-intro{text-align:center;color:var(--muted);font-size:18px;margin:-20px 0 55px}
+.social-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  max-width: 1100px;
+  margin: auto;
+}
+.social {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: rgba(17, 17, 31, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 35px;
+  backdrop-filter: blur(12px);
+  color: #f6f4ff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Background Glow Effects */
+.social::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: 0.4s ease;
+  z-index: -1;
+}
+.social:hover {
+  transform: translateY(-12px);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.social:hover::before { opacity: 1; }
+
+/* Individual Brand Glows */
+.instagram:hover { box-shadow: 0 15px 35px rgba(225, 48, 108, 0.3); }
+.instagram::before { background: linear-gradient(135deg, rgba(240,148,51,0.1), rgba(225,48,108,0.15), rgba(188,42,141,0.1)); }
+
+.github-social:hover { box-shadow: 0 15px 35px rgba(255, 255, 255, 0.15); }
+.github-social::before { background: radial-gradient(circle at bottom right, rgba(255,255,255,0.15) 0%, transparent 60%); }
+
+.linkedin:hover { box-shadow: 0 15px 35px rgba(0, 119, 181, 0.3); }
+.linkedin::before { background: radial-gradient(circle at top left, rgba(0,119,181,0.2) 0%, transparent 70%); }
+
+.whatsapp:hover { box-shadow: 0 15px 35px rgba(37, 211, 102, 0.3); }
+.whatsapp::before { background: radial-gradient(circle at center, rgba(37,211,102,0.15) 0%, transparent 70%); }
+
+.email:hover { box-shadow: 0 15px 35px rgba(234, 67, 53, 0.3); }
+.email::before { background: radial-gradient(circle at bottom left, rgba(234,67,53,0.18) 0%, transparent 70%); }
+
+/* Animated Elements Inside Card */
+.social-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+}
+.social:hover .social-img {
+  transform: scale(1.15) translateY(-6px);
+}
+.social span.text {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.social:hover span.text {
+  transform: translateY(2px);
+  color: #fff;
+}
+.social b {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 16px;
+  opacity: 0;
+  color: rgba(255, 255, 255, 0.7);
+  transform: translate(-10px, 10px) rotate(-45deg);
+  transition: all 0.3s ease;
+}
+.social:hover b {
+  opacity: 1;
+  transform: translate(0, 0) rotate(0deg);
+}
+
+.note{text-align:center;color:#6e7990;font-size:13px;margin-top:40px}
+footer{text-align:center;padding:29px 15px;background:#04050ab3;border-top:1px solid #ffffff12;color:#718097}
+.heart{color:#ff416c}
+
+@media(max-width:1050px){
+  .hero{grid-template-columns:1.15fr .8fr;gap:28px}
+  .profile-ring{width:min(340px,32vw)}
+  .skill-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:800px){
+  .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+.navbar{height:76px;padding:0 6%}.logo{font-size:28px}.menu-button{display:block}
+nav{display:none;position:absolute;top:75px;left:0;right:0;background:#0b0c15;border-bottom:1px solid var(--line);padding:22px;flex-direction:column;gap:20px}
+nav.open{display:flex}.section{padding:65px 6%}
+.hero{grid-template-columns:1fr;text-align:center;padding-top:55px;gap:20px}
+.eyebrow{font-size:13px;margin-bottom:24px}h1{letter-spacing:-1.7px}.typed-line{font-size:23px}.intro{font-size:16px}
+.actions{justify-content:center}.btn{padding:14px 17px;font-size:14px}.stats{justify-content:center;gap:24px;margin-top:35px}
+.hero-image-area{min-height:340px}.profile-ring{width:min(290px,72vw)}
+.floating-label{font-size:12px;padding:10px 13px}.label-top{top:10%;left:0}.label-bottom{bottom:8%;right:0}
+.section-title{margin-bottom:35px}.section-title p{font-size:16px}
+.about-card{padding:28px 22px;border-radius:23px}.about-card>p{font-size:16px}
+.qualities{grid-template-columns:1fr;gap:12px}.qualities article{padding:20px}
+.skill-grid{gap:15px}.skill-card{min-height:280px;padding:25px 15px;border-radius:22px}
+.tech-icon{width:70px;height:70px;margin-bottom:18px;border-radius:20px;font-size:24px}.skill-card h3{font-size:18px}.skill-card p{font-size:13px}
+.social-grid { gap: 15px; }
+.social { width: calc(50% - 10px); height: 140px; border-radius: 25px; font-size: 15px;}
+.social-img { width: 40px; height: 40px; }
+}
+@media(max-width:400px){
+.social-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.social { width: 100%; height: 90px; flex-direction: row; justify-content: flex-start; padding-left: 25px; gap: 20px;}
+.social b { top: 35px; right: 25px; }
+.skill-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor Elements -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-outline" id="cursorOutline"></div>
+
+<header class="navbar">
+<a class="logo" href="#home">Yash <span>.</span></a>
+<button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">☰</button>
+<nav id="navigation">
+<a href="#home">Home</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+<span class="status"><i></i> Open to learning</span>
+</nav>
+</header>
+
+<main>
+<section class="hero section" id="home">
+<div class="hero-text">
+<div class="eyebrow"><span>⌘</span> Software Developer Portfolio</div>
+<h1>Hi, I'm <span class="gradient">Yash Dhanda</span></h1>
+<div class="typed-line">I'm a <span id="typedText">CSE Student</span><b class="caret">|</b></div>
+<p class="intro">A Computer Science Engineering student passionate about programming, web development, and solving problems. I'm learning new technologies and turning ideas into projects, one line of code at a time.</p>
+<div class="actions"><a class="btn primary" href="#skills">Explore My Skills <span>➜</span></a><a class="btn secondary" href="#contact">✉ &nbsp; Let's Connect</a></div>
+<div class="stats"><div><strong>Curious</strong><small>Mindset</small></div><div><strong>Learning</strong><small>Every day</small></div><div><strong>Building</strong><small>Projects</small></div></div>
+</div>
+<div class="hero-image-area">
+<div class="floating-label label-top"><span>▰</span> Web Developer</div>
+<div class="profile-ring"><img src="bio.jpeg" alt="Yash Dhanda" onerror="this.style.display='none';document.getElementById('profileFallback').style.display='flex'"><div class="profile-fallback" id="profileFallback"><strong>YD</strong><small>Add your photo as profile.jpg</small></div></div>
+<div class="floating-label label-bottom"><span>⚡</span> CSE &amp; Coding</div>
+</div>
+</section>
+
+<section class="section" id="about">
+<div class="section-title"><h2>About <span class="gradient">Me</span></h2><p>Get to know the student behind the code</p></div>
+<div class="about-card">
+<p>Hello! I'm <strong>Yash Dhanda</strong>, a B.Tech Computer Science Engineering student at <strong>Maharishi Markandeshwar University, Mullana</strong>. I'm interested in programming, web development, software development, and learning how technology can solve real-world problems.</p>
+<p class="quote">“An enthusiastic learner who enjoys solving problems, building projects, and improving his skills step by step.” 💻 🚀</p>
+<div class="qualities">
+<article><span class="quality-icon">⌘</span><h3>Clean Code</h3><p>Working toward readable, organised code</p></article>
+<article><span class="quality-icon">♧</span><h3>Problem Solver</h3><p>Practising programming logic and debugging</p></article>
+<article><span class="quality-icon">🚀</span><h3>Fast Learner</h3><p>Exploring new tools and technologies</p></article>
+</div></div>
+</section>
+
+<section class="section" id="skills">
+<div class="section-title"><h2>My <span class="gradient">Skills</span></h2><p>Technologies I'm learning and working with</p></div>
+
+<div class="skill-grid">
+<article class="skill-card card-html">
+  <div class="tech-icon html">5</div>
+  <h3>HTML5</h3>
+  <p>Semantic structure &amp; layout</p>
+  <span class="level">Learning</span>
+</article>
+
+<article class="skill-card card-css">
+  <div class="tech-icon css">3</div>
+  <h3>CSS3</h3>
+  <p>Styling, responsive design &amp; effects</p>
+  <span class="level">Learning</span>
+</article>
+
+<article class="skill-card card-js">
+  <div class="tech-icon js">JS</div>
+  <h3>JavaScript</h3>
+  <p>Interactive UI &amp; programming logic</p>
+  <span class="level">Learning</span>
+</article>
+
+<article class="skill-card card-py">
+  <div class="tech-icon python">Py</div>
+  <h3>Python</h3>
+  <p>Programming and scripting basics</p>
+  <span class="level">Learning</span>
+</article>
+
+<article class="skill-card card-java">
+  <div class="tech-icon java">♨</div>
+  <h3>Java</h3>
+  <p>Object-oriented programming</p>
+  <span class="level">Learning</span>
+</article>
+
+<article class="skill-card card-c">
+  <div class="tech-icon c">C</div>
+  <h3>C Programming</h3>
+  <p>Fundamentals and problem solving</p>
+  <span class="level">Learning</span>
+</article>
+
+<article class="skill-card card-sql">
+  <div class="tech-icon sql">DB</div>
+  <h3>SQL</h3>
+  <p>Database queries and concepts</p>
+  <span class="level">Learning</span>
+</article>
+
+<article class="skill-card card-gh">
+  <div class="tech-icon github">GH</div>
+  <h3>GitHub</h3>
+  <p>Sharing and managing projects</p>
+  <span class="level">Learning</span>
+</article>
+</div>
+
+</section>
+
+<section class="section" id="contact">
+<div class="section-title"><h2>Let's <span class="gradient">Connect</span></h2><p>Find me on my social platforms</p></div>
+<p class="contact-intro">Have an idea, want to collaborate, or just say hello? Feel free to connect.</p>
+
+<div class="social-grid">
+<a class="social instagram" href="https://www.instagram.com/ch_yash_dhanda?psln=MWR4dWlmMWc1dTgwdQ==" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.icons8.com/fluency/96/instagram-new.png" alt="Instagram" class="social-img">
+  <span class="text">Instagram</span> <b>↗</b>
+</a>
+<a class="social github-social" href="https://github.com/yashdhanda64" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.icons8.com/ios-filled/100/ffffff/github.png" alt="GitHub" class="social-img">
+  <span class="text">GitHub</span> <b>↗</b>
+</a>
+<a class="social linkedin" href="https://www.linkedin.com/in/yash-dhanda-210a603b5/" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.icons8.com/color/96/linkedin.png" alt="LinkedIn" class="social-img">
+  <span class="text">LinkedIn</span> <b>↗</b>
+</a>
+<a class="social whatsapp" href="https://wa.me/qr/BKOZIPDHZFL5E1" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.icons8.com/color/96/whatsapp--v1.png" alt="WhatsApp" class="social-img">
+  <span class="text">WhatsApp</span> <b>↗</b>
+</a>
+<a class="social email" href="yashdhanda64@gmail.com">
+  <img src="https://img.icons8.com/color/96/gmail-new.png" alt="Email" class="social-img">
+  <span class="text">Email</span> <b>↗</b>
+</a>
+</div>
+
+<p class="note">Replace the sample links (WhatsApp number, LinkedIn profile, email) with your actual details.</p>
+</section>
+</main>
+<footer>© <span id="year"></span> Yash Dhanda. Made with <span class="heart">♥</span> and code.</footer>
+
+<script>
+// Typing Animation
+const phrases=["CSE Student","Aspiring Developer","Problem Solver","Tech Enthusiast"];
+const typedText=document.getElementById("typedText");
+let phraseIndex=0,position=phrases[0].length,deleting=true;
+function animateText(){
+ if(deleting){
+  position--;
+  typedText.textContent=phrases[phraseIndex].slice(0,Math.max(position,0));
+  if(position<=0){deleting=false;phraseIndex=(phraseIndex+1)%phrases.length;}
+  setTimeout(animateText,55);
+ }else{
+  position++;
+  typedText.textContent=phrases[phraseIndex].slice(0,position);
+  if(position>=phrases[phraseIndex].length){deleting=true;setTimeout(animateText,1300);}
+  else setTimeout(animateText,90);
+ }
+}
+setTimeout(animateText,1500);
+document.getElementById("year").textContent=new Date().getFullYear();
+
+// Mobile Menu
+const menuButton=document.getElementById("menuButton");
+const navigation=document.getElementById("navigation");
+menuButton.addEventListener("click",()=>{
+ const open=navigation.classList.toggle("open");
+ menuButton.setAttribute("aria-expanded",String(open));
+});
+navigation.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>{
+ navigation.classList.remove("open");
+ menuButton.setAttribute("aria-expanded","false");
+}));
+
+// Custom Cursor Logic
+const cursorDot = document.getElementById("cursorDot");
+const cursorOutline = document.getElementById("cursorOutline");
+let mouseX = 0, mouseY = 0;
+let outlineX = 0, outlineY = 0;
+
+window.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  // Instantly move the small dot
+  cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+});
+
+function animateCursor() {
+  // Easing formula for the smooth trailing effect
+  let distX = mouseX - outlineX;
+  let distY = mouseY - outlineY;
+  outlineX += distX * 0.15; 
+  outlineY += distY * 0.15;
+  
+  cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Add hover states to links and interactive elements
+const interactives = document.querySelectorAll('a, button, .btn, .social, .skill-card');
+interactives.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    document.body.classList.add('cursor-hover');
+  });
+  el.addEventListener('mouseleave', () => {
+    document.body.classList.remove('cursor-hover');
+  });
+});
+</script>
+</body>
+</html>
